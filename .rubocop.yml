@@ -1,0 +1,15 @@
+AllCops:
+  SuggestExtensions:
+    rubocop-rails: true
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+  ConsistentQuotesInMultiline: false
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: always_true
+
+Layout/IndentationStyle:
+  Enabled: false
+  IndentationWidth: tabs
