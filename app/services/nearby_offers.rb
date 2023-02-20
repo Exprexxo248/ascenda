@@ -30,7 +30,7 @@ class NearbyOffers
     offers = offers.sort_by { |offer| offer.closest_merchant.distance }.group_by(&:category)
 
     if offers.size == 1
-      offers.values.first[0..1]
+      offers.values.first[0..NUM_OF_RESULTS]
     else
       [offers.values.first[0], offers.values.second[0]]
     end
