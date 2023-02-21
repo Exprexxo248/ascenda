@@ -29,7 +29,6 @@ gem "stimulus-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
-gem "validates_timeliness"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

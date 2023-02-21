@@ -20,5 +20,11 @@ RSpec.describe Externals::NearOffersApi do
         subject.get_offers(location:)
       end.to raise_error(Errors::NearOffersError)
     end
+    it "too many request" do
+      allow_any_instance_of(HTTParty::Response).to receive(:code).and_return(429)
+      expect do
+        subject.get_offers(location:)
+      end.to raise_error(Errors::NearOffersError)
+    end
   end
 end

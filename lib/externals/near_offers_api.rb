@@ -17,7 +17,7 @@ module Externals
 
     private
 
-    def request(method, url, data = nil)
+    def request(method, url, data = nil, time = 0)
       res = if method == :get
               self.class.get url, query: data
             else
@@ -27,8 +27,10 @@ module Externals
       when 200
         JSON.parse(res.body)["offers"]
       when 429
+        raise Errors::NearOffersError.new(message: "Failed (#{res.code}) to request #{method} #{url}") if time == 5
+
         sleep 1
-        request(method:, url:, data:)
+        request(method, url, data, time + 1)
       else
         raise Errors::NearOffersError.new(message: "Failed (#{res.code}) to request #{method} #{url}")
       end
