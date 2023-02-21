@@ -5,7 +5,3 @@ class OfferSerializer < BaseSerializer
     [obj.closest_merchant]
   end
 end
-
-# class MerchantSerializer < ActiveModel::Serializer
-#   attributes :id, :name, :distance
-# end

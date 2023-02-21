@@ -2,7 +2,6 @@
 
 # This Services used to access to the Near By Offers API
 class NearbyOffers
-
   CATEGORY_MAPPING = {
     Restaurant: 1,
     Retail: 2,
@@ -18,7 +17,6 @@ class NearbyOffers
 
   def call(location:, checkin_date:)
     offers = parse_result(Externals::NearOffersApi.new.get_offers(location:))
-    checkin_date = Date.parse(checkin_date)
 
     offers = offers.select do |offer|
       ALLOWED_CATEGORY.include?(offer.category) && # Only select category in SELECTED_CATEGORY
@@ -27,12 +25,12 @@ class NearbyOffers
 
     return [] if offers == []
 
-    offers = offers.sort_by { |offer| offer.closest_merchant.distance }.group_by(&:category)
+    offers_by_categories = offers.sort_by { |offer| offer.closest_merchant.distance }.group_by(&:category)
 
-    if offers.size == 1
-      offers.values.first[0..NUM_OF_RESULTS]
+    if offers_by_categories.size == 1
+      offers_by_categories.values.first[0..NUM_OF_RESULTS]
     else
-      [offers.values.first[0], offers.values.second[0]]
+      [offers_by_categories.values.first[0], offers_by_categories.values.second[0]]
     end
   end
 

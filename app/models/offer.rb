@@ -11,6 +11,6 @@ class Offer
   end
 
   def closest_merchant
-    @closest_merchant = @merchants.min_by(&:distance)
+    @closest_merchant ||= @merchants.min_by(&:distance)
   end
 end
